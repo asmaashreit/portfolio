@@ -1,5 +1,5 @@
 <?php
-
+require 'includes/connection.php';
 include 'includes/helperFunction.php';
 
 include 'includes/layout/head.php'; ?>
@@ -10,9 +10,9 @@ include 'includes/layout/head.php'; ?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Dashboard</h1>
+                        <h1 class="mt-4">Dashboard <?php echo ucwords($_SESSION['userData']['name']);?></h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
+                            <li class="breadcrumb-item active">Dashboardrequire </li>
                         </ol>
                         <div class="row">
                             <div class="col-xl-3 col-md-6">

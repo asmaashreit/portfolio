@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 07, 2021 at 09:21 PM
+-- Generation Time: Apr 09, 2021 at 08:49 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -71,8 +71,26 @@ CREATE TABLE `comment_project` (
 
 CREATE TABLE `department` (
   `id` int(11) NOT NULL,
-  `name` char(50) NOT NULL,
-  `langs_id` int(11) NOT NULL
+  `name` char(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `department`
+--
+
+INSERT INTO `department` (`id`, `name`) VALUES
+(6, 'web design');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `depart_lang`
+--
+
+CREATE TABLE `depart_lang` (
+  `id` int(11) NOT NULL,
+  `depart_id` int(11) NOT NULL,
+  `lang_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -130,8 +148,10 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `role`) VALUES
-(1, 'admin'),
-(4, 'super');
+(5, 'admin'),
+(6, 'super user'),
+(7, 'user'),
+(8, 'super Admin');
 
 -- --------------------------------------------------------
 
@@ -144,11 +164,19 @@ CREATE TABLE `users` (
   `name` char(50) NOT NULL,
   `email` char(50) NOT NULL,
   `password` int(100) NOT NULL,
-  `gender` enum('0','1') NOT NULL,
+  `gender` enum('male','female') NOT NULL,
   `image` char(255) NOT NULL,
-  `depart_id` int(11) NOT NULL COMMENT 'department interested it user',
   `id_role` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `gender`, `image`, `id_role`) VALUES
+(1, 'asmaa', 'asmaa@gmail.com', 1234567890, 'male', '', 5),
+(4, 'aaa', 'admin@gmail.com', 147852369, 'female', '1617979227Screenshot from 2020-06-29 19-37-11.png', 6),
+(5, 'sssss', 'ssss@gmail.com', 123654789, 'male', '1617985402Screenshot from 2020-05-30 23-33-10.png', 7);
 
 --
 -- Indexes for dumped tables
@@ -181,8 +209,15 @@ ALTER TABLE `comment_project`
 -- Indexes for table `department`
 --
 ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `depart_lang`
+--
+ALTER TABLE `depart_lang`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `langs_name` (`langs_id`);
+  ADD KEY `depart_id` (`depart_id`),
+  ADD KEY `lang_id` (`lang_id`);
 
 --
 -- Indexes for table `images_project`
@@ -216,7 +251,6 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `depart_id` (`depart_id`),
   ADD KEY `id_role` (`id_role`);
 
 --
@@ -245,7 +279,13 @@ ALTER TABLE `comment_project`
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `depart_lang`
+--
+ALTER TABLE `depart_lang`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `images_project`
@@ -257,7 +297,7 @@ ALTER TABLE `images_project`
 -- AUTO_INCREMENT for table `langs`
 --
 ALTER TABLE `langs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `projects`
@@ -269,13 +309,13 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -302,11 +342,11 @@ ALTER TABLE `comment_project`
   ADD CONSTRAINT `comment_project_ibfk_2` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `department`
+-- Constraints for table `depart_lang`
 --
-ALTER TABLE `department`
-  ADD CONSTRAINT `department_ibfk_1` FOREIGN KEY (`langs_id`) REFERENCES `langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `department_ibfk_2` FOREIGN KEY (`id`) REFERENCES `users` (`depart_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `depart_lang`
+  ADD CONSTRAINT `depart_lang_ibfk_1` FOREIGN KEY (`lang_id`) REFERENCES `langs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `depart_lang_ibfk_2` FOREIGN KEY (`depart_id`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `images_project`

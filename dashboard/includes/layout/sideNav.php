@@ -18,7 +18,8 @@
                             <div class="collapse" id="collapseAdmin" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="<?php echo url('admin/adminRoles/displayRoles.php'); ?>">Admin Roles</a>
-                                    <a class="nav-link" href="#">Admin Account</a>
+                                    <a class="nav-link" href="<?php echo url('admin/adminAccount/displayAccounts.php'); ?>">Admin Account</a>
+                                    <a class="nav-link" href="<?php echo url('admin/adminDepartment/displayDepartment.php'); ?>">Admin Department</a>
                                 </nav>
                             </div>
                             

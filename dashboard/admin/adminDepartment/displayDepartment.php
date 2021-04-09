@@ -3,7 +3,7 @@
     include '../../includes/helperFunction.php';
 
     //Select data from table roles
-    $sql = "SELECT * FROM roles";
+    $sql = "SELECT * FROM department";
     $op = mysqli_query($con,$sql);
 ?>
 <?php   
@@ -17,15 +17,15 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                        <h1 class="mt-4">Display Roles</h1>
+                        <h1 class="mt-4">Display Departments</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="../../index.php">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Admin Roles</li>
+                            <li class="breadcrumb-item active">Departments</li>
                         </ol>
 
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                               Data || <a href="<?php   echo url('admin/adminRoles/addRole.php');  ?> ">addRole</a>
+                               Data || <a href="<?php   echo url('admin/adminDepartment/addDepartment.php');  ?> ">add Department</a>
                             </div>
 
                             <div class="card-body">
@@ -35,23 +35,21 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>Name</th>
-                                                <th>ID</th>
                                                 <th>Action</th>
                                                 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 0;
+                                            <?php
                                                 while($data = mysqli_fetch_assoc($op)){
-                                                    $i++;
+                                                    
                                                     ?>
                                                     <tr>
-                                                        <td><?php echo $i;?></td>
-                                                        <td><?php echo $data['role'];?></td>
                                                         <td><?php echo $data['id'];?></td>
+                                                        <td><?php echo $data['name'];?></td>
                                                         <td>
-                                                            <a href ="deleteRole.php?id=<?php echo $data['id']; ?>">Delete</a> ||
-                                                            <a href ="editRole.php?id=<?php echo $data['id']; ?>">Edit</a></td>
+                                                            <a href ="#">Delete</a> ||
+                                                            <a href ="#">Edit</a></td>
                                                         
                                                     </tr>
                                                 <?php }?>
